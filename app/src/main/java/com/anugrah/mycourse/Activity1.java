@@ -7,6 +7,7 @@ import android.text.PrecomputedText;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -28,6 +29,8 @@ public class Activity1 extends AppCompatActivity {
 
     CourseModel c;
 
+    ProgressBar p;
+
     String WebApi="https://dummyapilist.herokuapp.com/addcourse";
 
 
@@ -37,6 +40,10 @@ public class Activity1 extends AppCompatActivity {
         setContentView(R.layout.activity_1);
 
         c= new CourseModel();
+
+        p=(ProgressBar)findViewById(R.id.pp);
+
+
 
 
         e1=(EditText)findViewById(R.id.ct);
@@ -70,12 +77,8 @@ public class Activity1 extends AppCompatActivity {
                 String tda=c.getDate(s1);
 
 
-                Toast.makeText(getApplicationContext(),s1,Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(),s2,Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(),s3,Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(),s4,Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(),s5,Toast.LENGTH_SHORT).show();
 
+             p.setVisibility(View.VISIBLE);
 
                 callApi();
 
@@ -100,12 +103,20 @@ public class Activity1 extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
 
+                p.setVisibility(View.INVISIBLE);
+                e1.setText("");
+                e2.setText("");
+                e3.setText("");
+                e4.setText("");
+                e5.setText("");
+
             }
         },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
+                        p.setVisibility(View.INVISIBLE);
                     }
                 })
         {
